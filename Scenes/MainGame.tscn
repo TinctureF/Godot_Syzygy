@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://main_game_001"]
+
+[ext_resource type="PackedScene" uid="uid://player_001" path="res://Entities/player/Player.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="2"]
+[ext_resource type="Script" path="res://Scripts/LootDropper.gd" id="3"]
+[ext_resource type="Script" path="res://Scripts/UIMediator.gd" id="4"]
+[ext_resource type="Script" path="res://Scripts/BuffAssembler.gd" id="5"]
+[ext_resource type="Script" path="res://Scripts/CombatResolver.gd" id="6"]
+[ext_resource type="Script" path="res://UI/DebugPanel.gd" id="7"]
+
+[node name="MainGame" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1") groups=["player"]]
+position = Vector2(200, 300)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+enabled = true
+
+[node name="EnemySpawner" type="Node2D" parent="." groups=["enemy_spawner"]]
+script = ExtResource("2")
+
+[node name="LootDropper" type="Node" parent="."]
+script = ExtResource("3")
+
+[node name="UIMediator" type="Node" parent="."]
+script = ExtResource("4")
+
+[node name="BuffAssembler" type="Node" parent="." groups=["buff_assembler"]]
+script = ExtResource("5")
+
+[node name="CombatResolver" type="Node" parent="."]
+script = ExtResource("6")
+
+[node name="DebugPanel" type="CanvasLayer" parent="."]
+script = ExtResource("7")
+
+[node name="DebugLabel" type="Label" parent="DebugPanel"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 14
+text = "CporA MVP Prototype
+Loading..."
