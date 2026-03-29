@@ -37,6 +37,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/initial_position_type=0
 
+[editor]
+
+movie_writer/movie_file="F:/项目/SYZYGY/moive/test1.avi"
+
 [input]
 
 ui_left={
