@@ -1,68 +1,42 @@
-# DeckLibrary.gd
-# 牌库管理 - 144张牌系统
+# DeckLibrary.gd - 牌库大总管 (位于 Core/card_engine/)
 extends Node
 
-## 牌库状态
-var deck: Array[CardObject] = []
-var drawn_count: int = 0
-const TOTAL_CARDS: int = 144
+var full_deck: Array[CardObject] = [] # 完整的108张牌堆
 
-func _ready():
-	init_deck()
+# 游戏开始时调用，生成并洗牌
+func initialize_deck():
+	full_deck.clear()
+	
+	# 定义我们刚才建立的文件夹和命名前缀
+	var suits_data = [
+		{"enum_val": CardObject.Suit.POINT, "prefix": "point"},
+		{"enum_val": CardObject.Suit.LINE, "prefix": "line"},
+		{"enum_val": CardObject.Suit.PLANE, "prefix": "plane"}
+	]
+	
+	# 双重循环：3个花色 x 9个数字
+	for suit_info in suits_data:
+		for i in range(1, 10):
+			# 按照刚才的命名规范拼出文件路径
+			var res_path = "res://Resources/card/instances/%s/%s_%d.tres" % [suit_info.prefix, suit_info.prefix, i]
+			
+			# 读取资源
+			var card_res = load(res_path) as CardObject
+			if card_res != null:
+				# 每种牌放 4 张进去，凑齐 108 张
+				for copy in range(4):
+					full_deck.append(card_res)
+			else:
+				push_error("找不到卡牌资源，请检查路径: " + res_path)
+	
+	# 使用 Godot 内置算法完美洗牌
+	full_deck.shuffle()
+	print(">> BOTANICAL.SYS: 108张牌库已生成并洗乱。")
 
-## 初始化牌库
-func init_deck() -> void:
-	deck.clear()
-	drawn_count = 0
-	
-	# 生成基础牌 RGB各36张 (1-9各4张)
-	for suit in [CardObject.Suit.RED, CardObject.Suit.GREEN, CardObject.Suit.BLUE]:
-		for value in range(1, 10):  # 1-9
-			for _i in range(4):  # 每种4张
-				var card = CardObject.new(suit, value)
-				deck.append(card)
-	
-	# 生成四象牌 各8张 (1-9取部分)
-	for suit in [CardObject.Suit.WIND, CardObject.Suit.FIRE, CardObject.Suit.WATER, CardObject.Suit.EARTH]:
-		for value in [1, 2, 3, 4, 5, 6, 7, 8]:
-			var card = CardObject.new(suit, value)
-			deck.append(card)
-	
-	# 生成三元牌 各4张
-	for suit in [CardObject.Suit.SUN, CardObject.Suit.MOON, CardObject.Suit.STAR]:
-		for _i in range(4):
-			var card = CardObject.new(suit, 1)
-			deck.append(card)
-	
-	# 调整到144张
-	while deck.size() < TOTAL_CARDS:
-		var card = CardObject.new(CardObject.Suit.RED, randi() % 9 + 1)
-		deck.append(card)
-	
-	# 打乱牌库
-	deck.shuffle()
-	
-	print("牌库初始化完成: ", deck.size(), " 张牌")
-
-## 抽一张牌
+# 抽牌函数
 func draw_card() -> CardObject:
-	if drawn_count >= deck.size():
-		print("警告：牌库已空！")
+	if full_deck.size() > 0:
+		return full_deck.pop_back() # 从牌堆尾部抽出一张
+	else:
+		print(">> 警告：牌库已耗尽！")
 		return null
-	
-	var card = deck[drawn_count]
-	drawn_count += 1
-	
-	# 更新DataVault
-	if has_node("/root/DataVault"):
-		get_node("/root/DataVault").remaining_cards = deck.size() - drawn_count
-	
-	return card
-
-## 获取剩余牌数
-func get_remaining_cards() -> int:
-	return deck.size() - drawn_count
-
-## 重置牌库
-func reset() -> void:
-	init_deck()

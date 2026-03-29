@@ -1,29 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://loot_card_001"]
+[gd_scene load_steps=6 format=3 uid="uid://c5yidvnr5me3r"]
 
-[ext_resource type="Script" path="res://Entities/card/LootCard.gd" id="1"]
+[ext_resource type="Shader" uid="uid://cn1lrb8wdu7np" path="res://Shaders/lootcard.gdshader" id="1_befbc"]
+[ext_resource type="Script" uid="uid://bwebflcml7wqg" path="res://Entities/card/LootCard.gd" id="1_w8krt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(30, 40)
+[sub_resource type="QuadMesh" id="QuadMesh_1p5hy"]
 
-[node name="LootCard" type="Area2D"]
-collision_layer = 8
-collision_mask = 1
-script = ExtResource("1")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1m7h"]
+render_priority = 0
+shader = ExtResource("1_befbc")
+shader_parameter/body_color = Color(0.432171, 0.78076786, 0.74156684, 1)
+shader_parameter/speed = 2.0
+shader_parameter/fade_alpha = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_1")
+[sub_resource type="SphereShape3D" id="SphereShape3D_erwvk"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0.5, 1)
-scale = Vector2(0.2, 0.25)
-texture = preload("res://icon.svg")
+[node name="Lootcard" type="Area3D"]
+script = ExtResource("1_w8krt")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -15.0
-offset_top = -20.0
-offset_right = 15.0
-offset_bottom = -5.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 10
-text = "?"
-horizontal_alignment = 1
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_1p5hy")
+surface_material_override/0 = SubResource("ShaderMaterial_h1m7h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_erwvk")

@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://d1u58m6kvbvgj"]
+
+[ext_resource type="FontFile" uid="uid://dl2ivd54txkoy" path="res://Assets/arts/ui/NK57-Monospace/nk57-monospace-sc-lt-36.ttf" id="1_s5xkr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urj8v"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(1, 0.33095807, 0.3071499, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhpv8"]
+bg_color = Color(0.735357, 0.735357, 0.735357, 0.60800004)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndphc"]
+bg_color = Color(0.735357, 0.735357, 0.735357, 0.42000002)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gejlu"]
+bg_color = Color(0.735357, 0.735357, 0.735357, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2dhy"]
+bg_color = Color(0, 0.1428257, 0.21508199, 0.60200006)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dd8ik"]
+bg_color = Color(0.7882353, 0.85882354, 0.8627451, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_rg6ji"]
+color = Color(0.7882353, 0.85882354, 0.8627451, 1)
+thickness = 2
+
+[resource]
+default_font = ExtResource("1_s5xkr")
+Button/styles/disabled = SubResource("StyleBoxFlat_urj8v")
+Button/styles/focus = SubResource("StyleBoxFlat_dhpv8")
+Button/styles/hover = SubResource("StyleBoxFlat_ndphc")
+Button/styles/normal = SubResource("StyleBoxFlat_gejlu")
+Button/styles/pressed = SubResource("StyleBoxFlat_s2dhy")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_dd8ik")
+ProgressBar/styles/fill = SubResource("StyleBoxLine_rg6ji")

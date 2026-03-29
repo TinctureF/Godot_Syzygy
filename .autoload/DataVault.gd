@@ -2,10 +2,24 @@
 # 数据黑匣子 - 只记录不计算
 extends Node
 
+## 玩家数据
+@export var player_hp: float = 20.0
+@export var player_max_hp: float = 20.0
+@export var player_shield: float = 0.0
+@export var player_max_shield: float = 30.0
+
 ## 核心数据
 var energy: float = 100.0  # 当前能量值
 var dps_snapshot: float = 0.0  # DPS快照
-var remaining_cards: int = 144  # 剩余牌数
+var remaining_cards: int = 108  # 剩余牌数
+
+## 游戏状态锁死
+var game_over_locked: bool = false  # 游戏结束后锁定数据
+
+## 锁死数据方法
+func lock_data():
+	game_over_locked = true
+	print("[DataVault] 数据已锁死")
 
 ## 战斗统计
 var total_damage_dealt: float = 0.0
@@ -42,7 +56,7 @@ func get_snapshot() -> Dictionary:
 func reset() -> void:
 	energy = 100.0
 	dps_snapshot = 0.0
-	remaining_cards = 144
+	remaining_cards = 108
 	total_damage_dealt = 0.0
 	enemies_killed = 0
 	cards_collected = 0

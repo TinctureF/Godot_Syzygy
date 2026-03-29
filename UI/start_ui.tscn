@@ -1,0 +1,201 @@
+[gd_scene load_steps=8 format=3 uid="uid://cv8q2vf2socis"]
+
+[ext_resource type="FontFile" uid="uid://piog5i1psuw5" path="res://Assets/arts/ui/BARSTRIP-Ultra-Condensed/BARSTRIP-Free-2.ttf" id="1_fds6y"]
+[ext_resource type="Script" uid="uid://cip8bktwse7bq" path="res://UI/char_s_sensor.gd" id="1_nqclv"]
+[ext_resource type="Theme" uid="uid://d1u58m6kvbvgj" path="res://UI/TacticalTheme.tres" id="2_x2h3g"]
+[ext_resource type="PackedScene" uid="uid://dftdada8ucoea" path="res://UI/CharUnit.tscn" id="4_r1x1s"]
+[ext_resource type="FontFile" uid="uid://2vi4qfy8np5t" path="res://Assets/arts/ui/NK57-Monospace/nk57-monospace-ex-bk-8.ttf" id="5_6i0ab"]
+[ext_resource type="Script" uid="uid://bkg4i0sw6n4bi" path="res://UI/launch_btn.gd" id="6_6i0ab"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxrbp"]
+content_margin_left = 10.0
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_width_left = 2
+border_color = Color(0.735357, 0.735357, 0.735357, 1)
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Char_S_Container" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Char_S_Sensor" type="TextureButton" parent="Char_S_Container"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.49800003
+anchor_right = 1.001
+anchor_bottom = 0.5
+offset_left = -354.0
+offset_top = -158.70001
+offset_right = -0.1550293
+offset_bottom = 158.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nqclv")
+
+[node name="Options_Drawer" type="VBoxContainer" parent="Char_S_Container/Char_S_Sensor"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 25.0
+offset_right = 329.0
+offset_bottom = 244.0
+
+[node name="ColorRect" type="ColorRect" parent="Char_S_Container/Char_S_Sensor/Options_Drawer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+theme = ExtResource("2_x2h3g")
+color = Color(0.735357, 0.735357, 0.735357, 1)
+
+[node name="Visual_Container" type="Node2D" parent="Char_S_Container/Char_S_Sensor"]
+
+[node name="Glow_Sprite" type="Sprite2D" parent="Char_S_Container/Char_S_Sensor/Visual_Container"]
+
+[node name="MainChar_Label" type="RichTextLabel" parent="Char_S_Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.46
+anchor_right = 1.001
+anchor_bottom = 0.46
+offset_left = -452.0
+offset_top = -175.0
+offset_right = -0.1550293
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+theme_override_fonts/normal_font = ExtResource("1_fds6y")
+theme_override_font_sizes/normal_font_size = 300
+text = "S Y Z Y G Y"
+
+[node name="LogoGroup" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -459.0
+offset_top = -154.0
+offset_bottom = 132.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CharUnit1_S" parent="LogoGroup" node_paths=PackedStringArray("target_menu") instance=ExtResource("4_r1x1s")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+target_menu = NodePath("../Menus_Anchor/Start_Menu")
+
+[node name="CharUnit2_Y" parent="LogoGroup" node_paths=PackedStringArray("target_menu") instance=ExtResource("4_r1x1s")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+target_menu = NodePath("../Menus_Anchor/Start_Menu")
+
+[node name="CharUnit3_Z" parent="LogoGroup" node_paths=PackedStringArray("target_menu") instance=ExtResource("4_r1x1s")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+target_menu = NodePath("../Menus_Anchor/Setting_Menu")
+
+[node name="CharUnit4_Y" parent="LogoGroup" node_paths=PackedStringArray("target_menu") instance=ExtResource("4_r1x1s")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+target_menu = NodePath("../Menus_Anchor/Setting_Menu")
+
+[node name="CharUnit5_G" parent="LogoGroup" node_paths=PackedStringArray("target_menu") instance=ExtResource("4_r1x1s")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+target_menu = NodePath("../Menus_Anchor/Formula_Menu")
+
+[node name="CharUnit6_Y" parent="LogoGroup" node_paths=PackedStringArray("target_menu") instance=ExtResource("4_r1x1s")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+target_menu = NodePath("../Menus_Anchor/Formula_Menu")
+
+[node name="Menus_Anchor" type="Control" parent="LogoGroup"]
+layout_mode = 2
+
+[node name="Start_Menu" type="VBoxContainer" parent="LogoGroup/Menus_Anchor"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.94400007
+anchor_right = 0.5
+anchor_bottom = 0.94400007
+offset_left = -313.0
+offset_top = -40.98401
+offset_right = -102.0
+offset_bottom = 39.01599
+grow_horizontal = 2
+
+[node name="Launch_Btn" type="Button" parent="LogoGroup/Menus_Anchor/Start_Menu"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6i0ab")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_sxrbp")
+text = ">INIT_SEQ"
+script = ExtResource("6_6i0ab")
+
+[node name="Setting_Menu" type="VBoxContainer" parent="LogoGroup/Menus_Anchor"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.93900007
+anchor_right = 0.5
+anchor_bottom = 0.93900007
+offset_left = -314.0
+offset_top = -39.554016
+offset_right = -104.0
+offset_bottom = 39.445984
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Setting_Btn" type="Button" parent="LogoGroup/Menus_Anchor/Setting_Menu"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6i0ab")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_sxrbp")
+text = ">ENV_PROT"
+
+[node name="Formula_Menu" type="VBoxContainer" parent="LogoGroup/Menus_Anchor"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.93900007
+anchor_right = 0.5
+anchor_bottom = 0.93900007
+offset_left = -313.0
+offset_top = -39.554016
+offset_right = -63.0
+offset_bottom = 40.445984
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="List_Btn" type="Button" parent="LogoGroup/Menus_Anchor/Formula_Menu"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6i0ab")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_sxrbp")
+text = ">ARCH_GUIDE"

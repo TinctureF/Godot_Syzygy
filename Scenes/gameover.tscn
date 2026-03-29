@@ -1,0 +1,115 @@
+[gd_scene load_steps=15 format=3 uid="uid://53wwpuu5mt7"]
+
+[ext_resource type="Script" uid="uid://bavby3osexy4n" path="res://Scenes/gameover.gd" id="1_a57xw"]
+[ext_resource type="FontFile" uid="uid://2vi4qfy8np5t" path="res://Assets/arts/ui/NK57-Monospace/nk57-monospace-ex-bk-8.ttf" id="1_bb3cs"]
+[ext_resource type="Texture2D" uid="uid://dn2turxdnjxjh" path="res://Assets/arts/backgrounds/HDR_multi_nebulae_1.hdr" id="1_fg4p2"]
+[ext_resource type="Theme" uid="uid://d1u58m6kvbvgj" path="res://UI/TacticalTheme.tres" id="2_a57xw"]
+[ext_resource type="PackedScene" uid="uid://vvs8x1153ux2" path="res://Assets/arts/backgrounds/bg_woman.tscn" id="4_qjy16"]
+[ext_resource type="Script" uid="uid://d2rmch4famvki" path="res://Assets/arts/backgrounds/bg_woman.gd" id="5_26hfm"]
+[ext_resource type="Shader" uid="uid://cmd1kv7cncdl" path="res://Shaders/starring.gdshader" id="6_vskwr"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qpupn"]
+panorama = ExtResource("1_fg4p2")
+energy_multiplier = 19.82
+
+[sub_resource type="Sky" id="Sky_2oltb"]
+sky_material = SubResource("PanoramaSkyMaterial_qpupn")
+
+[sub_resource type="Environment" id="Environment_vnjje"]
+background_mode = 2
+background_energy_multiplier = 2.3
+sky = SubResource("Sky_2oltb")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kieh0"]
+noise_type = 3
+frequency = 0.5875
+fractal_lacunarity = 3.555
+fractal_gain = 0.465
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_opou1"]
+width = 256
+height = 1
+noise = SubResource("FastNoiseLite_kieh0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n6n6q"]
+render_priority = 0
+shader = ExtResource("6_vskwr")
+shader_parameter/ring_texture = SubResource("NoiseTexture2D_opou1")
+shader_parameter/stripe_density = 809.8110147160226
+shader_parameter/brightness = 2.8490000878275
+shader_parameter/ring_color = Color(0.6378432, 0.6378432, 0.63784313, 1)
+shader_parameter/warm_glow_color = Color(1, 0.6, 0.3, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_wxkdt"]
+material = SubResource("ShaderMaterial_n6n6q")
+inner_radius = 10.0
+outer_radius = 20.0
+rings = 68
+ring_segments = 128
+
+[node name="Gameover" type="Node3D"]
+script = ExtResource("1_a57xw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -706.0
+offset_top = -66.0
+offset_bottom = 66.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="CONNECTION LOST" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_bb3cs")
+theme_override_font_sizes/font_size = 30
+text = "...CONNECTION LOST"
+
+[node name="LabelScoreSummary" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ButtonLayout" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 200
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/VBoxContainer/ButtonLayout"]
+layout_mode = 2
+theme = ExtResource("2_a57xw")
+theme_override_font_sizes/font_size = 25
+text = ">RE-SYNC"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/VBoxContainer/ButtonLayout"]
+layout_mode = 2
+theme = ExtResource("2_a57xw")
+theme_override_font_sizes/font_size = 25
+text = ">DISCONNECT"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vnjje")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.059, 0, 25)
+current = true
+fov = 50.0
+
+[node name="bg_woman" parent="." instance=ExtResource("4_qjy16")]
+transform = Transform3D(17.35531, 1.668789e-07, 9.93948, 0.9516208, 19.908129, -1.6616241, -9.89382, 1.9148304, 17.275583, -1.3228874, -8.161012, -11.508493)
+script = ExtResource("5_26hfm")
+
+[node name="starring" type="MeshInstance3D" parent="bg_woman"]
+transform = Transform3D(0.0031918585, -0.00030564892, -0.049522158, -0.006720966, 0.0024559253, -0.006496343, 0.049443312, 0.00035357222, 0.0023138784, -0.064404085, 0.23889992, -0.036827683)
+mesh = SubResource("TorusMesh_wxkdt")
+skeleton = NodePath("../..")
+script = ExtResource("5_26hfm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CanvasLayer/VBoxContainer")

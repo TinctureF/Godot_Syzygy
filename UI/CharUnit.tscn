@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dftdada8ucoea"]
+
+[ext_resource type="Script" uid="uid://dvu1sm7onxibd" path="res://UI/char_unit.gd" id="1_jsoqr"]
+[ext_resource type="FontFile" uid="uid://2vi4qfy8np5t" path="res://Assets/arts/ui/NK57-Monospace/nk57-monospace-ex-bk-8.ttf" id="2_6j0jf"]
+
+[node name="CharUnit" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_jsoqr")
+
+[node name="Char_Sensor" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Visual_Container" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="Visual_Container"]
+offset_top = -2.0
+offset_right = 75.0
+offset_bottom = 319.0
+theme_override_fonts/font = ExtResource("2_6j0jf")
+theme_override_font_sizes/font_size = 30

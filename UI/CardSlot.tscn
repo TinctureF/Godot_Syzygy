@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://djjo3sydmicnf"]
+
+[ext_resource type="Script" uid="uid://booj8bfjv5xce" path="res://UI/card_slot.gd" id="1_yn4uv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65b35"]
+bg_color = Color(0.54509807, 0.65882355, 0.6666667, 0.4)
+border_width_bottom = 2
+border_color = Color(0.7882353, 0.85882354, 0.8627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yn4uv"]
+bg_color = Color(0.57700837, 0.5770084, 0.57700825, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(18.892002, 18.892002, 18.892002, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 3
+
+[node name="CardSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(80, 120)
+theme_override_styles/panel = SubResource("StyleBoxFlat_65b35")
+script = ExtResource("1_yn4uv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="SuitLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="CardArt" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HighlightPanel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yn4uv")

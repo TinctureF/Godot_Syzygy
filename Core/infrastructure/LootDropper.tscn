@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm432a8y5ar0m"]
+
+[ext_resource type="Script" uid="uid://bocfq58a3twlo" path="res://Core/infrastructure/LootDropper.gd" id="1_jtnqs"]
+[ext_resource type="PackedScene" uid="uid://c5yidvnr5me3r" path="res://Entities/card/lootcard.tscn" id="2_mur36"]
+
+[node name="LootDropper" type="Node"]
+script = ExtResource("1_jtnqs")
+loot_card_scene = ExtResource("2_mur36")
+spawn_interval = 3.0
+spawn_max = 5
+fade_in_time = 3.0
+lifetime = 15.0

@@ -1,23 +1,86 @@
-[gd_scene load_steps=4 format=3 uid="uid://player_001"]
+[gd_scene load_steps=14 format=3 uid="uid://ccwuxaso6kvgl"]
 
-[ext_resource type="Script" path="res://Entities/player/PlayerController.gd" id="1"]
-[ext_resource type="Script" path="res://Entities/player/WeaponSystem.gd" id="2"]
+[ext_resource type="Script" uid="uid://3va8kia60epv" path="res://Entities/player/PlayerController.gd" id="1_y660y"]
+[ext_resource type="PackedScene" uid="uid://mn5jsvqpaq1v" path="res://Assets/arts/models/starship.tscn" id="2_nqdw5"]
+[ext_resource type="Script" uid="uid://cao24g21oentv" path="res://Entities/player/weapon_system.gd" id="3_3we0j"]
+[ext_resource type="Shader" uid="uid://dyi1d82gihtfx" path="res://Shaders/Shield Bubble.gdshader" id="3_nqdw5"]
+[ext_resource type="Script" uid="uid://c1kcrec1ryak0" path="res://Entities/projectiles/BulletPool.gd" id="4_y660y"]
+[ext_resource type="Script" uid="uid://b72lq4sh6v7l8" path="res://Entities/player/ShieldMesh.gd" id="5_shield"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(30, 30)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jw32o"]
 
-[node name="Player" type="CharacterBody2D"]
-collision_layer = 1
-collision_mask = 4
-script = ExtResource("1")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3we0j"]
+render_priority = 0
+shader = ExtResource("3_nqdw5")
+shader_parameter/shield_color = Color(0.3019608, 0.6745098, 1, 1)
+shader_parameter/pulse_speed = 1.0
+shader_parameter/intensity = 0.2000000095
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_1")
+[sub_resource type="SphereMesh" id="SphereMesh_vso2a"]
+material = SubResource("ShaderMaterial_3we0j")
+radius = 0.81
+height = 1.5
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.3, 0.7, 1, 1)
-scale = Vector2(0.25, 0.25)
-texture = preload("res://icon.svg")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thv6b"]
+albedo_color = Color(0.8013348, 0.29472336, 0, 1)
+emission_enabled = true
+emission = Color(0.9060314, 0.5054447, 9.62615e-07, 1)
 
-[node name="WeaponSystem" type="Node2D" parent="."]
-script = ExtResource("2")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4kpch"]
+material = SubResource("StandardMaterial3D_thv6b")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grg3l"]
+radius = 0.02
+height = 0.05
+
+[sub_resource type="PackedScene" id="PackedScene_nqdw5"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("PlayerBullet", "Area3D", "player_bullet", "collision_layer", "collision_mask", "script", "MeshInstance3D", "MeshInstance3D", "transform", "mesh", "CollisionShape3D", "CollisionShape3D", "transform", "shape"),
+"node_count": 3,
+"node_paths": [NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 3, 3, 0, 4, 1, 5, 2, 1, 2, 1073741824, 0, 7, 6, -1, 2, 8, 3, 9, 4, 0, 1073741825, 0, 11, 10, -1, 2, 12, 5, 13, 6, 0),
+"variants": [4, 2, ExtResource("4_y660y"), Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0), SubResource("CapsuleMesh_4kpch"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0014169216, -0.012460053, -0.013709068), SubResource("CapsuleShape3D_grg3l")],
+"version": 3
+}
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+collision_mask = 2
+script = ExtResource("1_y660y")
+max_speed = 25.0
+acceleration = 4.0
+friction = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.051447038, 0.9986759, -8.881784e-15, -0.9986759, 0.051447038, 0, 0, 4.440892e-15, 1.0000002, 0.5410599, 0, 0)
+shape = SubResource("CapsuleShape3D_jw32o")
+
+[node name="starship" parent="." instance=ExtResource("2_nqdw5")]
+transform = Transform3D(-2.6226832e-08, 0, -0.59999996, 0, 0.59999996, 0, 0.59999996, 0, -2.6226832e-08, 0.02440679, 0, -0.006198883)
+
+[node name="EngineFlames" parent="starship" index="6"]
+transform = Transform3D(0, 0.9728615, 0, -8.885447e-08, -3.4562985e-15, 0.9370189, 1.4907306, 0, 5.5850677e-08, -0.021361476, 0.02780414, 3.08223)
+
+[node name="Area3D" type="Area3D" parent="starship"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="starship/Area3D"]
+transform = Transform3D(-3.7480357e-09, -7.275584e-08, 1.6666671, -1.6644598, 0.08574507, 0, -0.08574507, -1.6644598, -7.2852316e-08, 0.010331456, 0, -0.38359988)
+shape = SubResource("CapsuleShape3D_jw32o")
+
+[node name="ShieldMesh" type="MeshInstance3D" parent="starship"]
+transform = Transform3D(4.075, 0, -2.7353411e-14, 0, 1.51, 0, 6.0743945e-14, 0, 1.835, 1.21071935e-08, 0, 0.27450344)
+mesh = SubResource("SphereMesh_vso2a")
+script = ExtResource("5_shield")
+
+[node name="WeaponSystem" type="Node3D" parent="."]
+script = ExtResource("3_3we0j")
+bullet_scene = SubResource("PackedScene_nqdw5")
+
+[node name="Muzzle" type="Marker3D" parent="WeaponSystem"]
+
+[editable path="starship"]

@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b5my5ceo42v7d"]
+
+[resource]
+resource_name = "材质.001"
+cull_mode = 2
+vertex_color_use_as_albedo = true

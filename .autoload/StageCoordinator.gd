@@ -23,11 +23,11 @@ func _enter_init_state() -> void:
 	current_state = GameState.INIT
 	SignalBus.stage_changed.emit("INIT")
 	
-	print("=== 游戏初始化 ===")
+	print("=== THINKING ===")
 	
 	# 初始化牌库
-	if has_node("/root/DeckLibrary"):
-		get_node("/root/DeckLibrary").init_deck()
+	DeckLibrary.initialize_deck()
+	DataVault.reset()
 	
 	# 重置数据
 	if has_node("/root/DataVault"):
@@ -42,7 +42,7 @@ func _enter_battle_state() -> void:
 	current_state = GameState.BATTLE
 	SignalBus.stage_changed.emit("BATTLE")
 	
-	print("=== 战斗开始 ===")
+	print("=== START ===")
 	
 	# 启动敌人生成器
 	var spawner = get_tree().get_first_node_in_group("enemy_spawner")
@@ -54,8 +54,8 @@ func _enter_result_state(victory: bool) -> void:
 	current_state = GameState.RESULT
 	SignalBus.stage_changed.emit("RESULT")
 	
-	print("=== 游戏结束 ===")
-	print("胜利: ", victory)
+	print("=== PASS ===")
+	print("TO BE CONTINUE: ", victory)
 	
 	# 停止敌人生成
 	var spawner = get_tree().get_first_node_in_group("enemy_spawner")
@@ -65,13 +65,31 @@ func _enter_result_state(victory: bool) -> void:
 	# 显示结算数据
 	if has_node("/root/DataVault"):
 		var data = get_node("/root/DataVault").get_snapshot()
-		print("击杀数: ", data.enemies_killed)
-		print("收集卡牌: ", data.cards_collected)
-		print("剩余牌数: ", data.remaining_cards)
+		print("Enemies_Killed: ", data.enemies_killed)
+		print("Cards_Collected: ", data.cards_collected)
+		print("Remaining_Cards: ", data.remaining_cards)
 
 ## 游戏结束
 func _on_game_over(victory: bool) -> void:
+	print("[StageCoordinator] 收到 game_over 信号, victory:", victory)
+
+	# 立即锁死数据，阻止回血Buff继续执行
+	DataVault.lock_data()
+
 	_enter_result_state(victory)
+
+	# 立即暂停游戏，防止回血等逻辑继续执行
+	get_tree().paused = true
+
+	# 延迟一小段时间后切换到 gameover 场景
+	await get_tree().create_timer(1.0).timeout
+	get_tree().change_scene_to_file("res://Scenes/gameover.tscn")
+
+## 监控牌库是否耗尽
+func _process(_delta):
+	if current_state == GameState.BATTLE:
+		if DataVault.remaining_cards <= 0:
+			SignalBus.game_over.emit(false)
 
 ## 重新开始
 func restart() -> void:

@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c5rapuqrt1b5j"]
+
+[resource]
+resource_name = "材质.002"
+cull_mode = 2
+albedo_color = Color(0.23921569, 0.08627451, 0, 0.87058824)
+metallic = 1.0
+emission_enabled = true
+emission = Color(1, 0.5933047, 0.27918035, 1)
+emission_energy_multiplier = 1.57

@@ -1,0 +1,148 @@
+[gd_scene load_steps=6 format=3 uid="uid://cm6c1k1hojduw"]
+
+[ext_resource type="Theme" uid="uid://d1u58m6kvbvgj" path="res://UI/TacticalTheme.tres" id="1_6dd3c"]
+[ext_resource type="Script" uid="uid://cg762n3kuhdia" path="res://UI/ui.gd" id="1_dhe1o"]
+[ext_resource type="PackedScene" uid="uid://djjo3sydmicnf" path="res://UI/CardSlot.tscn" id="3_q0uhn"]
+[ext_resource type="Script" uid="uid://4px2udq3tiq" path="res://UI/digit_health.gd" id="4_f1fl4"]
+[ext_resource type="FontFile" uid="uid://hr05v2mrkado" path="res://Assets/arts/ui/Tower-Block/Tower-Block-Italic-1.otf" id="5_jqf55"]
+
+[node name="Ui" type="CanvasLayer"]
+script = ExtResource("1_dhe1o")
+
+[node name="TacticalOverlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="HBoxContainer" parent="TacticalOverlay"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_6dd3c")
+
+[node name="CardSlotGrid" type="HBoxContainer" parent="TacticalOverlay"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_6dd3c")
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CardSlot" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot2" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot3" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot4" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot5" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot6" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot7" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot8" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="CardSlot9" parent="TacticalOverlay/CardSlotGrid" instance=ExtResource("3_q0uhn")]
+layout_mode = 2
+
+[node name="DigitHealth" type="HBoxContainer" parent="TacticalOverlay"]
+layout_mode = 1
+offset_left = 50.0
+offset_top = 60.0
+offset_right = 463.0
+offset_bottom = 60.0
+script = ExtResource("4_f1fl4")
+
+[node name="Label0" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "0"
+
+[node name="Label1" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "1"
+
+[node name="Label2" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "2"
+
+[node name="Label3" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "3"
+
+[node name="Label4" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "4"
+
+[node name="Label5" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "5"
+
+[node name="Label6" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "6"
+
+[node name="Label7" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "7"
+
+[node name="Label8" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "8"
+
+[node name="Label9" type="Label" parent="TacticalOverlay/DigitHealth"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_jqf55")
+theme_override_font_sizes/font_size = 45
+text = "9"
+
+[node name="PlayerStatus" type="VBoxContainer" parent="TacticalOverlay"]
+layout_mode = 1
+offset_left = 47.0
+offset_top = 120.0
+offset_right = 367.0
+offset_bottom = 167.0
+
+[node name="ShieldBar" type="ProgressBar" parent="TacticalOverlay/PlayerStatus"]
+layout_mode = 2
+max_value = 10.0
+value = 10.0
+show_percentage = false

@@ -1,0 +1,82 @@
+[gd_scene load_steps=15 format=3 uid="uid://bjpsq6xvcyhtq"]
+
+[ext_resource type="Texture2D" uid="uid://dn2turxdnjxjh" path="res://Assets/arts/backgrounds/HDR_multi_nebulae_1.hdr" id="1_iwm58"]
+[ext_resource type="PackedScene" uid="uid://cv8q2vf2socis" path="res://UI/start_ui.tscn" id="1_n6n6q"]
+[ext_resource type="Script" uid="uid://c2me0ulrj8sni" path="res://Scenes/world_environment.gd" id="2_buk83"]
+[ext_resource type="PackedScene" uid="uid://vvs8x1153ux2" path="res://Assets/arts/backgrounds/bg_woman.tscn" id="3_kieh0"]
+[ext_resource type="Script" uid="uid://d2rmch4famvki" path="res://Assets/arts/backgrounds/bg_woman.gd" id="4_buk83"]
+[ext_resource type="Shader" uid="uid://cmd1kv7cncdl" path="res://Shaders/starring.gdshader" id="5_kieh0"]
+[ext_resource type="AudioStream" uid="uid://beadwl35tmwwi" path="res://Assets/audio/bgm/syzygy.wav" id="7_rm7fy"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_n6n6q"]
+panorama = ExtResource("1_iwm58")
+energy_multiplier = 8.0
+
+[sub_resource type="Sky" id="Sky_rm7fy"]
+sky_material = SubResource("PanoramaSkyMaterial_n6n6q")
+
+[sub_resource type="Environment" id="Environment_7d7wm"]
+background_mode = 2
+background_energy_multiplier = 4.68
+sky = SubResource("Sky_rm7fy")
+sky_rotation = Vector3(-0.991347, -0.36128315, 0)
+glow_enabled = true
+glow_bloom = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kieh0"]
+noise_type = 3
+frequency = 0.5875
+fractal_lacunarity = 3.555
+fractal_gain = 0.465
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n6n6q"]
+width = 256
+height = 1
+noise = SubResource("FastNoiseLite_kieh0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n6n6q"]
+render_priority = 0
+shader = ExtResource("5_kieh0")
+shader_parameter/ring_texture = SubResource("NoiseTexture2D_n6n6q")
+shader_parameter/stripe_density = 809.8110147160226
+shader_parameter/brightness = 2.8490000878275
+shader_parameter/ring_color = Color(0.6378432, 0.6378432, 0.63784313, 1)
+shader_parameter/warm_glow_color = Color(1, 0.6, 0.3, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_rm7fy"]
+material = SubResource("ShaderMaterial_n6n6q")
+inner_radius = 10.0
+outer_radius = 20.0
+rings = 68
+ring_segments = 128
+
+[node name="StartScreen" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.059, 0, 25)
+fov = 50.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017754436, 14.702323, 9.004005)
+
+[node name="Start" parent="." instance=ExtResource("1_n6n6q")]
+mouse_filter = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7d7wm")
+script = ExtResource("2_buk83")
+amplitude = 4.0
+
+[node name="bg_woman" parent="." instance=ExtResource("3_kieh0")]
+transform = Transform3D(17.35531, 1.668789e-07, 9.93948, 0.9516208, 19.908129, -1.6616241, -9.89382, 1.9148304, 17.275583, -1.3228874, -8.161012, -11.508493)
+script = ExtResource("4_buk83")
+
+[node name="starring" type="MeshInstance3D" parent="bg_woman"]
+transform = Transform3D(0.0031918585, -0.00030564892, -0.049522158, -0.006720966, 0.0024559253, -0.006496343, 0.049443312, 0.00035357222, 0.0023138784, -0.064404085, 0.23889992, -0.036827683)
+mesh = SubResource("TorusMesh_rm7fy")
+skeleton = NodePath("../..")
+script = ExtResource("4_buk83")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_rm7fy")
+autoplay = true

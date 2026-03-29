@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://vvs8x1153ux2"]
+
+[ext_resource type="PackedScene" uid="uid://drq0gyb78glal" path="res://Assets/arts/models/bg_woman.blend" id="1_ar7xk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ar7xk"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.44, 0.44, 0.44, 0.4745098)
+metallic = 0.79
+roughness = 0.4
+emission = Color(0.18717614, 0.18717614, 0.18717614, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j8si"]
+metallic = 1.0
+metallic_specular = 0.58
+roughness = 0.11
+
+[node name="bg_woman" instance=ExtResource("1_ar7xk")]
+
+[node name="node_0" parent="." index="0"]
+layers = 524288
+material_override = SubResource("StandardMaterial3D_ar7xk")
+material_overlay = SubResource("StandardMaterial3D_3j8si")

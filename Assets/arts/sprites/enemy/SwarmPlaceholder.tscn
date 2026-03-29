@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://swarm_placeholder"]
+
+[ext_resource type="Script" path="res://Entities/enemy/SwarmDrone.gd" id="1"]
+
+[node name="SwarmDrone" type="CharacterBody2D"]
+script = ExtResource("1")
+max_hp = 5.0
+move_speed = 200.0
+contact_damage = 5.0
+
+[node name="Sprite" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 0.3, 0.3, 1)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlmt23plj0e8k"]
+
+[ext_resource type="Script" uid="uid://bdf787te8qoin" path="res://Entities/enemy/BaseEnemy.gd" id="1_dedqd"]
+[ext_resource type="Shader" uid="uid://cifuxplcw5u0m" path="res://Shaders/virus_base.gdshader" id="2_7qlp4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4kpch"]
+render_priority = 0
+shader = ExtResource("2_7qlp4")
+shader_parameter/color_mercury = Color(0.21881196, 0.26384202, 0.26706132, 1)
+shader_parameter/color_red_core = Color(1, 0.1, 0, 1)
+shader_parameter/glow_intensity = 4.0950001945125
+shader_parameter/fresnel_power = 8.0
+shader_parameter/tail_speed = 4.14
+shader_parameter/tail_amplitude = 0.405
+
+[sub_resource type="QuadMesh" id="QuadMesh_grg3l"]
+material = SubResource("ShaderMaterial_4kpch")
+size = Vector2(1.2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h1m7h"]
+
+[node name="Virus_1" type="Area3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_dedqd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_grg3l")
+
+[node name="CollisionShape3D1" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_h1m7h")

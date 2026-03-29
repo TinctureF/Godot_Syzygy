@@ -1,61 +1,42 @@
 # CardObject.gd
-# 卡牌资源定义
+# 卡牌资源定义 (DEMO 精简版)
 extends Resource
 class_name CardObject
 
-## 卡牌花色枚举
+## 卡牌花色枚举 (DEMO 仅保留点、线、面)
 enum Suit {
-	RED,    # 红色 - 攻击
-	GREEN,  # 绿色 - 防御
-	BLUE,   # 蓝色 - 能量
-	WIND,   # 风 - 四象
-	FIRE,   # 火 - 四象
-	WATER,  # 水 - 四象
-	EARTH,  # 土 - 四象
-	SUN,    # 日 - 三元
-	MOON,   # 月 - 三元
-	STAR,   # 星 - 三元
-	BAGUA   # 八荒铭文
+	POINT,  # 点- 攻击强化
+	LINE,   # 线 - 防御强化
+	PLANE   # 面 - 能量机动
 }
 
 ## 基础属性
-@export var suit: Suit = Suit.RED
+@export var suit: Suit = Suit.POINT
 @export var value: int = 1  # 1-9
 @export var card_id: String = ""
+@export var card_texture: Texture2D # 用于存放那 27 张具体的卡面贴图
 
-## 八荒铭文类型
-@export var bagua_type: String = ""  # "天", "地", "玄", "黄", "宇", "宙", "洪", "荒"
-
-func _init(p_suit: Suit = Suit.RED, p_value: int = 1):
+# 初始化函数
+func _init(p_suit: Suit = Suit.POINT, p_value: int = 1):
 	suit = p_suit
 	value = p_value
 	card_id = _generate_id()
 
+# 自动生成唯一 ID (例如: POINT_5)
 func _generate_id() -> String:
 	var suit_name = Suit.keys()[suit]
-	if suit == Suit.BAGUA:
-		return "BAGUA_" + bagua_type
 	return suit_name + "_" + str(value)
 
-## 获取卡牌显示名称
+## 获取卡牌显示名称 (用于后台测试或UI提示)
 func get_display_name() -> String:
-	if suit == Suit.BAGUA:
-		return "八荒·" + bagua_type
 	var suit_names = {
-		Suit.RED: "红",
-		Suit.GREEN: "绿",
-		Suit.BLUE: "蓝",
-		Suit.WIND: "风",
-		Suit.FIRE: "火",
-		Suit.WATER: "水",
-		Suit.EARTH: "土",
-		Suit.SUN: "日",
-		Suit.MOON: "月",
-		Suit.STAR: "星"
+		Suit.POINT: "点",
+		Suit.LINE: "线",
+		Suit.PLANE: "面"
 	}
 	return suit_names.get(suit, "") + str(value)
 
-## 判断是否可以组成顺子
+## 规则辅助：判断是否可以与另外两张牌组成顺子
 func can_form_sequence_with(card2: CardObject, card3: CardObject) -> bool:
 	if suit != card2.suit or suit != card3.suit:
 		return false
@@ -63,6 +44,6 @@ func can_form_sequence_with(card2: CardObject, card3: CardObject) -> bool:
 	values.sort()
 	return values[1] == values[0] + 1 and values[2] == values[1] + 1
 
-## 判断是否可以组成刻子
+## 规则辅助：判断是否可以与另外两张牌组成刻子
 func can_form_triplet_with(card2: CardObject, card3: CardObject) -> bool:
 	return suit == card2.suit and suit == card3.suit and value == card2.value and value == card3.value

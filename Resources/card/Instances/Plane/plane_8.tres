@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CardObject" load_steps=3 format=3 uid="uid://4yrjlk3jmvbu"]
+
+[ext_resource type="Script" uid="uid://rs6y2et46kud" path="res://Resources/card/CardObject.gd" id="1_rmx7c"]
+[ext_resource type="Texture2D" uid="uid://wmxgd5nccla5" path="res://Resources/card/Instances/Plane/Suit_Plane_8.svg" id="1_up5xc"]
+
+[resource]
+script = ExtResource("1_rmx7c")
+suit = 2
+value = 8
+card_texture = ExtResource("1_up5xc")
+metadata/_custom_type_script = "uid://rs6y2et46kud"
